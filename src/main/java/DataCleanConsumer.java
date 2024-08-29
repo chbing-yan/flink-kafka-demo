@@ -23,7 +23,9 @@ public class DataCleanConsumer {
 
     static {
         try {
-            parameterTool = ParameterTool.fromPropertiesFile(new FileInputStream("/Users/sakura/IdeaProjects/flink-kafka-demo/src/main/resources/config.properties"));
+            String projectDir = System.getProperty("user.dir");
+            System.out.println(projectDir);
+            parameterTool = ParameterTool.fromPropertiesFile(new FileInputStream(projectDir+"/src/main/resources/config.properties"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -35,7 +37,8 @@ public class DataCleanConsumer {
         env.setParallelism(1);
 
         KafkaSource<String> source = KafkaSource.<String>builder()
-                .setBootstrapServers("124.221.14.39:9092")
+//                .setBootstrapServers("124.221.14.39:9092")
+                .setBootstrapServers("localhost:9092")
                 .setTopics("before_clean")
                 .setGroupId("clean_app")
                 .setStartingOffsets(OffsetsInitializer.earliest())
@@ -48,7 +51,8 @@ public class DataCleanConsumer {
                 .map(DataCleanConsumer::clean); // 简单的字符串前缀
 
         KafkaSink<String> sink = KafkaSink.<String>builder()
-                .setBootstrapServers("124.221.14.39:9092")
+//                .setBootstrapServers("124.221.14.39:9092")
+                .setBootstrapServers("localhost:9092")
                 .setRecordSerializer(KafkaRecordSerializationSchema.builder()
                         .setTopic("after_clean")
                         .setValueSerializationSchema(new SimpleStringSchema())
