@@ -23,9 +23,9 @@ public class DataCleanConsumer {
 
     static {
         try {
-            String projectDir = System.getProperty("user.dir");
-            System.out.println(projectDir);
-            parameterTool = ParameterTool.fromPropertiesFile(new FileInputStream(projectDir+"/src/main/resources/config.properties"));
+//            String projectDir = System.getProperty("user.dir");
+//            System.out.println(projectDir);
+            parameterTool = ParameterTool.fromPropertiesFile(new FileInputStream("src/main/resources/config.properties"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
