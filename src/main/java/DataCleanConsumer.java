@@ -32,7 +32,9 @@ public class DataCleanConsumer {
     }
     public static void main(String[] args) throws Exception {
         Configuration configuration=new Configuration();
-        final StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
+//        final StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
+        final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+
         env.disableOperatorChaining();
         env.setParallelism(1);
 
